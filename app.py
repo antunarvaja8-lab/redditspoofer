@@ -153,10 +153,12 @@ def process_images():
                     img = Image.open(file.stream)
                     orig_phash = phash(img)
 
+                # orig_phash = phash(img)
+                
                     transformed = apply_transformations(img, params)
-                    trans_phash = phash(transformed)
-                    diff = hamming_distance(orig_phash, trans_phash)
-                    hash_diffs.append(diff)
+                    #trans_phash = phash(transformed)
+                    #diff = hamming_distance(orig_phash, trans_phash)
+                    #hash_diffs.append(diff)
 
                     ext = file.filename.rsplit('.', 1)[-1].lower()
                     output_ext = ext if ext in ['jpg', 'jpeg', 'png', 'webp'] else 'jpg'
@@ -183,8 +185,8 @@ def process_images():
         "zip_url": f"/download/{zip_filename}",
         "processed": processed,
         "variations": variations,
-        "hash_diff_avg": avg_diff,
-        "note": "pHash Hamming diff >10-15 suele evadir detección perceptual (mejor que dHash para estos cambios)"
+        "hash_diff_avg": 0,  # temporal
+        "note": "pHash disabled for testing"
     })
 
 @app.route("/download/<filename>")
